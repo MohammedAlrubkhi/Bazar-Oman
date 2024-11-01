@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-image: url('header-background.jpg'); /* Replace with your background image */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            padding: 15px 20px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            width: 150px; /* Adjusted logo size */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 10px;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input[type="text"] {
+            width: 250px; /* Increased width for better usability */
+            padding: 10px; /* Increased padding for a bigger appearance */
+            border-radius: 25px; /* More rounded corners */
+            border: 1px solid #ddd; /* Light border */
+            outline: none;
+            font-size: 1em; /* Increased font size */
+            transition: border 0.3s; /* Transition effect for border */
+        }
+        .search-bar input[type="text"]:focus {
+            border: 1px solid #4CAF50; /* Change border color on focus */
+        }
+        .search-bar button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px; /* Increased padding for a bigger button */
+            margin-left: 5px;
+            border-radius: 25px; /* More rounded corners */
+            cursor: pointer;
+            font-size: 1em; /* Increased font size */
+            transition: background-color 0.3s; /* Transition effect for background color */
+        }
+        .search-bar button:hover {
+            background-color: #45a049;
+        }
+        .cart-icon {
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #FFD700;
+        }
+        h2 {
+            color: #e77000;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .item-card {
+            width: 150px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .item-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .item-name {
+            font-size: 0.9em;
+            margin: 8px 0;
+            color: #333;
+        }
+        .item-price {
+            font-size: 1em;
+            color: #FF9800;
+        }
+        .add-to-cart-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 8px;
+            font-size: 0.9em;
+            width: 100%;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="almzraa logo.jpg" alt="Market Logo">
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search for fresh products...">
+        <button>Search</button>
+    </div>
+    <div class="cart-icon">
+        🛒
+    </div>
+</header>
+
+<h2>Explore Fresh Products</h2>
+
+<div class="container">
+    <div class="item-card">
+        <img src="apple.png" alt="Apples">
+        <div class="item-name">Apples</div>
+        <div class="item-price">$1.00 each</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+    </div>
+    <div class="item-card">
+        <img src="banana.png" alt="Bananas">
+        <div class="item-name">Bananas</div>
+        <div class="item-price">$0.50 each</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+    </div>
+    <div class="item-card">
+        <img src="carrot.png" alt="Carrots">
+        <div class="item-name">Carrots</div>
+        <div class="item-price">$0.30 each</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+    </div>
+    <div class="item-card">
+        <img src="spinach.png" alt="Spinach">
+        <div class="item-name">Spinach</div>
+        <div class="item-price">$1.20 each</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+    </div>
+    <div class="item-card">
+        <img src="orange.png" alt="Oranges">
+        <div class="item-name">Oranges</div>
+        <div class="item-price">$0.80 each</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+    </div>
+</div>
+
+</body>
+</html>
