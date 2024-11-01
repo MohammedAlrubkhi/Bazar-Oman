@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="Styles.css">
+        <style>
+            @import url('headerText.css');
+            
+        </style>        
+    </head>
+
+    <body>
+        <!--page header which include logo and all direct access pages in the site-->
+        <div class="big-banner">
+            <div class = "container">
+            <header class="d-flex flex-wrap  justify-content-center justify-content-md-between py-3 mb-4 ">
+                <div class="col-md-3 mb-2 mb-md-0">
+                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <img src = "logo.png" class="bi" height="32"/>
+                </a>
+                </div>
+        
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="index.html" class="nav-link px-2" id = "headerText" style = "font-weight: bolder;" >Home</a></li>
+                <li><a href="markets.html" class="nav-link px-2"  id = "headerText">Markets</a></li>
+                <li><a href="shopping cart.html" class="nav-link px-2" id = "headerText">Shopping cart</a></li>
+                <li><a href="account.html" class="nav-link px-2"id = "headerText" >Account</a></li>
+                <li><a href="be a partner.html" class="nav-link px-2" id = "headerText">Be a patner</a></li>
+                <li><a href="contact us.html" class="nav-link px-2" id = "headerText">Contact us</a></li>
+                <li><a href="about us.html" class="nav-link px-2" id = "headerText">About us</a></li>
+                </ul>
+                
+                <div class="col-md-3 text-end">
+                <a href="login.html"><button type="button" class="btn btn-outline-primary normal-button">Login</button></a>
+                <a href="signup.html"><button type="button" class="btn btn-primary primary-button">Sign-up</button></a>
+                </div>
+            </header>
+            <header class="border-bottom">
+                <br/><br/><br/><br/>
+                <div style = "text-align: center;">
+                <h1 style = "color: white;">Best Groceries Website</h1>
+                </div>
+                <br/><br/><br/><br/><br/><br/><br/>
+            </header>
+            </div>
+            </div>
+            <!--end of header-->
+        
+        <form action = "">
+        <div class="container">
+        <h2 style="color: rgb(54, 120, 54);">Sign In</h2>
+
+        
+
+        <div class="mb-3 mt-3" >
+            <label for="email" class="form-label" ></label>
+            <input type="email"  style="background-color: white; "  class="form-control" id="email" placeholder="EMAIL*" name="email"required >
+            <div class="invalid-feedback">khbi</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        
+
+        <div class="mb-3 mt-3" >
+            <label for="pass" class="form-label"> </label>
+            <input type="password"  style="background-color: white; " class="form-control" id="pass" placeholder="PASSWORD*" name="pass" required>
+            <div class="invalid-feedback">khbi</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+
+        <div>
+            <a href="index.html" class="row justify-content-center">
+                <button type="submit" class="btn btn-outline-dark" style="width: 150px;">Sign In</button>
+            </a>
+           
+        </div>
+
+        
+    </body>
+</html>
