@@ -1,6 +1,11 @@
 #headerText{
     color: white;
 }
+.big-banner{
+    background-image: url("headerbg.png");
+    background-size: 100%;
+    
+}
 .primary-button{
     background-color: rgb(255,102,0); border-color: rgb(255, 102, 0);
     
