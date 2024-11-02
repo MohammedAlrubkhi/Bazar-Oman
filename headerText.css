@@ -34,3 +34,6 @@
 .green-color{
     color:rgb(23,255,0);
 }
+th,td{
+    padding-right:5em;
+  }
