@@ -34,7 +34,7 @@
         }
 
         h3{
-            color: rgb(255,102,0); /* Green */
+            color: rgb(255,102,0); /* Orange */
             font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
         }
@@ -75,7 +75,7 @@
         .count span {
             margin: 0 10px;
         }
-        .total {
+        .total, .tax {
             font-weight: bold;
             font-size: 1.2em;
             margin-top: 20px;
@@ -92,6 +92,13 @@
         button:hover {
             background-color: #45a049; /* Darker Green */
         }
+        .delete-btn {
+            background-color: transparent;
+            color: #333;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+        }
         .checkout-option {
             margin-top: 20px;
         }
@@ -102,6 +109,10 @@
             display: flex;
             justify-content: flex-end; /* Aligns the button to the right */
             margin-top: 20px;
+        }
+        .divider {
+            border-top: 2px solid #ddd;
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -140,59 +151,61 @@
 <div class="container">
     <div class="cart">
         <h2>Your Cart:</h2>
-        <div class="cart-item">
+        <div class="cart-item" data-price="1.00" data-name="Apples">
             <img src="apple.png" alt="Apples">
             <span>Apples</span>
             <div class="count">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
+              <button class="decrease">-</button>
+              <span class="quantity">1</span>
+              <button class="increase">+</button>
             </div>
-            <span>$1.00</span>
+            <span class="price">$1.00</span>
+            <button class="delete-btn">&#x1F5D1;</button> <!-- Trash emoji -->
         </div>
-        <div class="cart-item">
-            <img src="banana.png" alt="Bananas">
-            <span>Bananas</span>
-            <div class="count">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-            </div>
-            <span>$0.50</span>
+        <div class="cart-item" data-price="0.50" data-name="Bananas">
+          <img src="banana.png" alt="Bananas">
+          <span>Bananas</span>
+          <div class="count">
+              <button class="decrease">-</button>
+              <span class="quantity">1</span>
+              <button class="increase">+</button>
+          </div>
+          <span class="price">$0.50</span>
+          <button class="delete-btn">&#x1F5D1;</button> <!-- Trash emoji -->
         </div>
-        <div class="cart-item">
-            <img src="carrot.png" alt="Carrots">
-            <span>Carrots</span>
-            <div class="count">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-            </div>
-            <span>$0.30</span>
+        <div class="cart-item" data-price="0.30" data-name="Carrots">
+          <img src="carrot.png" alt="Carrots">
+          <span>Carrots</span>
+          <div class="count">
+              <button class="decrease">-</button>
+              <span class="quantity">1</span>
+              <button class="increase">+</button>
+          </div>
+          <span class="price">$0.30</span>
+          <button class="delete-btn">&#x1F5D1;</button> <!-- Trash emoji -->
         </div>
-        <div class="cart-item">
+        <div class="cart-item" data-price="1.20" data-name="Spinach">
             <img src="spinach.png" alt="Spinach">
             <span>Spinach</span>
             <div class="count">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
+              <button class="decrease">-</button>
+              <span class="quantity">1</span>
+              <button class="increase">+</button>
             </div>
-            <span>$1.20</span>
+            <span class="price">$1.20</span>
+            <button class="delete-btn">&#x1F5D1;</button>
         </div>
-        <div class="cart-item">
-            <img src="orange.png" alt="Oranges">
-            <span>Oranges</span>
-            <div class="count">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-            </div>
-            <span>$0.80</span>
+
+        <!-- Dividing Line -->
+        <div class="divider"></div>
+
+        <div class="tax">
+            Tax (5%): $0.15
         </div>
         <div class="total">
-            Total: $3.80
+            Total: $3.15
         </div>
+
         <div class="checkout-option">
             <h3>Select Payment Method:</h3>
             <label>
@@ -265,6 +278,59 @@
   <!-- Copyright -->
 </footer>
 <!--end of footer-->
+
+<script>
+  // Update Total Price including Tax
+  function updateTotal() {
+      let subtotal = 0;
+      const cartItems = document.querySelectorAll('.cart-item');
+      cartItems.forEach(item => {
+          const quantity = item.querySelector('.quantity').innerText;
+          const price = parseFloat(item.getAttribute('data-price'));
+          subtotal += price * parseInt(quantity);
+      });
+      const tax = subtotal * 0.05; // 5% tax
+      const total = subtotal + tax;
+
+      document.querySelector('.total').innerText = `Total: $${total.toFixed(2)}`;
+      document.querySelector('.tax').innerText = `Tax (5%): $${tax.toFixed(2)}`;
+  }
+
+  // Increase Quantity
+  document.querySelectorAll('.increase').forEach(button => {
+      button.addEventListener('click', () => {
+          const quantityElement = button.previousElementSibling;
+          let quantity = parseInt(quantityElement.innerText);
+          quantityElement.innerText = quantity + 1;
+          updateTotal();
+      });
+  });
+
+  // Decrease Quantity
+  document.querySelectorAll('.decrease').forEach(button => {
+      button.addEventListener('click', () => {
+          const quantityElement = button.nextElementSibling;
+          let quantity = parseInt(quantityElement.innerText);
+          if (quantity > 1) {
+              quantityElement.innerText = quantity - 1;
+              updateTotal();
+          }
+      });
+  });
+
+  // Delete Item
+  document.querySelectorAll('.delete-btn').forEach(button => {
+      button.addEventListener('click', () => {
+          const cartItem = button.closest('.cart-item');
+          cartItem.remove();
+          updateTotal();
+      });
+  });
+
+  // Initialize total calculation
+  updateTotal();
+
+</script>
 
 </body>
 </html>
