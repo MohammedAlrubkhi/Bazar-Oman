@@ -281,20 +281,36 @@
 
 <script>
   // Update Total Price including Tax
-  function updateTotal() {
-      let subtotal = 0;
-      const cartItems = document.querySelectorAll('.cart-item');
-      cartItems.forEach(item => {
-          const quantity = item.querySelector('.quantity').innerText;
-          const price = parseFloat(item.getAttribute('data-price'));
-          subtotal += price * parseInt(quantity);
-      });
-      const tax = subtotal * 0.05; // 5% tax
-      const total = subtotal + tax;
+  // Update Total Price including Tax and save cart data to localStorage
+function updateTotal() {
+    let subtotal = 0;
+    let cartData = [];
+    const cartItems = document.querySelectorAll('.cart-item');
+    cartItems.forEach(item => {
+        const quantity = item.querySelector('.quantity').innerText;
+        const price = parseFloat(item.getAttribute('data-price'));
+        const name = item.getAttribute('data-name');
+        const itemTotal = price * parseInt(quantity);
 
-      document.querySelector('.total').innerText = `Total: $${total.toFixed(2)}`;
-      document.querySelector('.tax').innerText = `Tax (5%): $${tax.toFixed(2)}`;
-  }
+        // Store each cart item's data
+        cartData.push({ name, quantity: parseInt(quantity), price, itemTotal });
+        subtotal += itemTotal;
+    });
+
+    const tax = subtotal * 0.05; // 5% tax
+    const total = subtotal + tax;
+
+    // Save cart data in localStorage
+    localStorage.setItem('cart', JSON.stringify(cartData));
+
+    // Update total display
+    document.querySelector('.total').innerText = `Total: $${total.toFixed(2)}`;
+    document.querySelector('.tax').innerText = `Tax (5%): $${tax.toFixed(2)}`;
+}
+
+// Initialize total calculation
+updateTotal();
+
 
   // Increase Quantity
   document.querySelectorAll('.increase').forEach(button => {

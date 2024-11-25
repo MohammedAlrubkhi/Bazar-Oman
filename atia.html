@@ -68,11 +68,25 @@
         .search-bar button:hover {
             background-color: #45a049; /* Darker button color on hover */
         }
+        .cart-icon {
+            position: relative;
+        }
         .cart-icon a {
             text-decoration: none; /* Remove underline from link */
             font-size: 2.5em; /* Size of cart icon */
             cursor: pointer; /* Pointer on hover */
             color: #FFD700; /* Color of cart icon */
+        }
+        .cart-counter {
+            position: absolute;
+            top: -8px; /* Reduced positioning */
+            right: -8px; /* Reduced positioning */
+            background-color: rgb(255,102,0); /* Matching color with item price */
+            color: white;
+            border-radius: 50%;
+            padding: 3px 6px; /* Smaller padding */
+            font-size: 1em; /* Smaller font size */
+            font-weight: bold;
         }
         h2 {
             color: rgb(255,102,0); /* Color of heading */
@@ -167,6 +181,7 @@
     </div>
     <div class="cart-icon">
         <a href="shopping cart.html">🛒</a>
+        <div id="cartCounter" class="cart-counter">0</div> <!-- Cart Counter -->
     </div>
 </div>
 
@@ -178,43 +193,43 @@
         <img src="grape.jpg" alt="grape">
         <div class="item-name">Grape</div>
         <div class="item-price">$0.07 each</div>
-        <button class="add-to-cart-btn">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="corn.jpg" alt="corn">
         <div class="item-name">Corn</div>
         <div class="item-price">$1.69 each</div>
-        <button class="add-to-cart-btn">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="avocado.jpg" alt="avocado">
         <div class="item-name">Avocado</div>
         <div class="item-price">$2.79 each</div>
-        <button class="add-to-cart-btn">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="lemon.jpg" alt="lemon">
         <div class="item-name">Lemon</div>
         <div class="item-price">$0.99 each</div>
-        <button class="add-to-cart-btn">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="mushrooms.jpg" alt="mushrooms">
         <div class="item-name">Mushrooms</div>
         <div class="item-price">$0.95 each</div>
-        <button class="add-to-cart-btn">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="carrot.png" alt="carrot">
         <div class="item-name">carrot</div>
         <div class="item-price">$1.15 each</div>
-        <button class="add-to-cart-btn">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="peas.jpg" alt="peas">
         <div class="item-name">Peas</div>
         <div class="item-price">$0.59 each</div>
-        <button class="add-to-cart-btn">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
     </div> 
     
 </div>
@@ -276,6 +291,17 @@
   <!-- Copyright -->
 </footer>
 <!--end of footer-->
+
+<script>
+  let cartItemCount = localStorage.getItem('cartItemCount') ? parseInt(localStorage.getItem('cartItemCount')) : 0;
+  document.getElementById('cartCounter').textContent = cartItemCount;
+
+  function addToCart() {
+      cartItemCount++;
+      localStorage.setItem('cartItemCount', cartItemCount);
+      document.getElementById('cartCounter').textContent = cartItemCount;
+  }
+</script>
 
 </body>
 </html>
