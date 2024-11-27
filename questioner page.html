@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bazar Oman</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        @import url('headerText.css');
+        
+        #shops-cards-stars{
+            text-align: center;
+            color: gold;
+        }       
+    </style>
+</head>
+<body>
+    <!--page header which include logo and all direct access pages in the site-->
+    <div class="big-banner">
+        <div class = "container">
+          <header class="d-flex flex-wrap  justify-content-center justify-content-md-between py-3 mb-4 ">
+            <div class="col-md-3 mb-2 mb-md-0">
+              <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <img src = "logo.png" class="bi" height="32"/>
+              </a>
+            </div>
+      
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="index.html" class="nav-link px-2" id = "headerText" style = "font-weight: bolder;" >Home</a></li>
+              <li><a href="markets.html" class="nav-link px-2"  id = "headerText">Markets</a></li>
+              <li><a href="shopping cart.html" class="nav-link px-2" id = "headerText">Shopping cart</a></li>
+              <li><a href="account.html" class="nav-link px-2"id = "headerText" >Account</a></li>
+              <li><a href="be a partner.html" class="nav-link px-2" id = "headerText">Be a patner</a></li>
+              <li><a href="contact us.html" class="nav-link px-2" id = "headerText">Contact us</a></li>
+              <li><a href="about us.html" class="nav-link px-2" id = "headerText">About us</a></li>
+              
+            </ul>
+            
+            <div class="col-md-3 text-end">
+              <a href="login.html"><button type="button" class="btn btn-outline-primary normal-button">Login</button></a>
+              <a href="signup.html"><button type="button" class="btn btn-primary primary-button">Sign-up</button></a>
+            </div>
+          </header>
+          <header class="border-bottom">
+              <br/><br/><br/><br/>
+              <div style = "text-align: center;">
+              <h1 style = "color: white;">Best Groceries Website</h1>
+              </div>
+              <br/><br/><br/><br/><br/><br/><br/>
+          </header>
+        </div>
+        </div>
+        <!--end of header-->
+
+        <form id="demo" method="POST">
+            <div class="container">
+
+                <!--phone number input-->
+                <div class="mb-3 mt-3">
+                    <label for="phoneNumber" class="form-label highlight">Phone number:</label>
+                    <input type="number" class="form-control" id="phoneNumber" placeholder="Enter Your Phone Number" name="phone number" required>
+                </div>
+                <hr>
+                
+                <!-- password input -->
+                <div class="mb-3 mt-3">
+                    <label for="password" class="form-label highlight">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter Your Password" name="password" required>
+                </div>
+                <hr>
+        
+                <!-- Gender Selection -->
+                <label for="gender" class="form-label highlight">Gender:</label>
+                <div class="form-check">
+                    <input type="radio" id="male" name="gender" value="male" class="form-check-input" checked>
+                    <label for="male" class="form-check-label">Male</label><br>
+                    <input type="radio" id="female" name="gender" value="female" class="form-check-input">
+                    <label for="female" class="form-check-label">Female</label><br>
+                </div>
+                <hr>
+        
+                <!-- Feedback Question 1: -->
+                <div class="mb-3 mt-3">
+                    <label for="feedback1" class="form-label highlight">Did you find it easy to browse and find your desired vegetables on our website?</label>
+                    <input type="text" placeholder="  Yes/No" class="form-control" id="feedback1" name="feedback1" required>
+                </div>
+        
+                <hr>
+        
+                <!-- Feedback Question 2: -->
+                <div class="mb-3 mt-3">
+                    <label for="feedback" class="form-label highlight">What improvements or additional features would you suggest to improve your shopping experience on our website?</label>
+                    <textarea class="form-control" id="feedback" name="feedback" required></textarea>
+                </div>
+        
+                <hr>
+        
+                <!-- User Experience Rating (1-5) -->
+                <label for="rate" class="form-label highlight">On a scale of 1 to 5, how would you rate the overall user experience of browsing or purchasing vegetables on our website?</label>
+                <div class="form-check">
+                    <input type="radio" id="1" name="rate" value="1" class="form-check-input">
+                    <label for="1" class="form-check-label">1. Very Poor</label><br>
+                    <input type="radio" id="2" name="rate" value="2" class="form-check-input">
+                    <label for="2" class="form-check-label">2. Poor</label><br>
+                    <input type="radio" id="3" name="rate" value="3" class="form-check-input" checked>
+                    <label for="3" class="form-check-label">3. Average</label><br>
+                    <input type="radio" id="4" name="rate" value="4" class="form-check-input">
+                    <label for="4" class="form-check-label">4. Good</label><br>
+                    <input type="radio" id="5" name="rate" value="5" class="form-check-input">
+                    <label for="5" class="form-check-label">5. Excellent</label><br>
+                </div>
+        
+                <hr>
+        
+                    <!-- Subscription Checkbox -->
+                <div class="mb-3 mt-3 form-check form-switch">
+                    <input class="form-check-input" type="checkbox" name="refund">
+                    <label class="form-check-label highlight" for="refund">Subscribe to receive updates about new vegetable markets and vegetables products</label>
+                </div>
+        
+                <hr>
+        
+                <div class="justify-content-center">
+                    <button type="submit" class="btn primary-button" style="width: 150px;">Submit</button>     
+                </div>
+            </div>
+        </form>
+        
+        <!-- Footer -->
+<footer class="bg-dark text-white text-center text-lg-start" style="margin: 0; padding: 0; margin-top: 5rem;"> 
+  <!-- Grid container -->
+  <div class="container p-4">
+      <div class="mb-3 mt-3 container-fluid row d-flex justify-content-center">
+      
+          <div class="col-8">
+              <input type="text" class="form-control" id="searchingFooter" placeholder="Enter a page name you want to visit or a keyword from the paragraph">
+          </div>
+          <div class="col-4"> 
+              <button onclick="footerTable()" class="btn btn-primary primary-button">Search</button>
+          </div>
+      </div><br/>
+
+      <div>
+          <table style="align-content: center;" id="footerTable">
+              <tr>
+                  <th><img src="logo.png" width="10%"/></th>
+                  <th class="orange-color"><h4><strong>Quick Access</strong></h4></th>
+              </tr>
+              <tr>
+                  <td>
+                      Welcome to Bazar Oman, your trusted destination for fresh, high-quality groceries<br/> in Oman. We are committed to making your grocery shopping experience simpler,<br/> faster, and more convenient. Our mission is to bring the freshest vegetables and <br/>fruits directly from the best local markets to your doorstep, ensuring you enjoy 100% <br/>fresh and healthy produce every time.
+                  </td>
+                  <td>
+                      <ul class="list-unstyled mb-0" id="footerList">
+                          <li><a href="index.html" class="text-white" style="text-decoration-line: none;">Home</a></li>
+                          <li><a href="account.html" class="text-white" style="text-decoration-line: none;">Account</a></li>
+                          <li><a href="be a partner.html" class="text-white" style="text-decoration-line: none;">Be a partner</a></li>
+                          <li><a href="contact us.html" class="text-white" style="text-decoration-line: none;">Contact us</a></li>
+                          <li><a href="about us.html" class="text-white" style="text-decoration-line: none;">About us</a></li>
+                          <li><a href="questioner page.html" class="text-white" style="text-decoration-line: none;">questioner page</a></li>
+                          <li><a href="shopping cart.html" class="text-white" style="text-decoration-line: none;">shopping cart</a></li>
+                      </ul>
+                  </td>
+              </tr>
+          </table>
+          <br/>
+      </div>
+  </div>
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2024 Copyright:
+      <a class="text-white">Bazar</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- End of footer -->
+
+    
+        <script>
+            const form = document.getElementById('demo');
+            const phone = document.getElementById('phoneNumber');
+            const feedback = document.getElementById('feedback');
+            const pass = document.getElementById('password');
+            const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/; // Password pattern
+            
+            form.addEventListener('submit', function(event) {
+                // Password validation
+                if (!pattern.test(pass.value)) {
+                    alert('Password must contain at least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long.');
+                    event.preventDefault(); //The form submission is blocked until all validation criteria are met.
+                    return;
+                }
+                
+                // Phone number validation
+                //the phone number must start with 9 or 7 and be exactly 8 digits long
+                if (!/^[97]\d{7}$/.test(phone.value)) {
+                    alert("Phone number must start with 9 or 7 and be 8 digits long.");
+                    event.preventDefault();
+                    return;
+                }
+                
+                // Feedback validation
+                //ensure the feedback is at least 15 characters long
+                if (feedback.value.length < 15) {
+                    alert("Please provide more detailed feedback!");
+                    event.preventDefault();
+                    return;
+                }
+            });
+
+            function footerTable() {
+    var td, tr, th, i, j, txt, table;
+    var listItems, li, k, listText;
+
+    // Get the search input value and convert to lowercase
+    var input = document.getElementById("searchingFooter").value.toLowerCase();
+
+    // Get the table and its rows
+    table = document.getElementById("footerTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Search in the table
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        th = tr[i].getElementsByTagName("th");
+
+        var rowMatch = false;
+
+        // Check in the <th> elements 
+        for (j = 0; j < th.length; j++) {
+            txt = th[j].textContent || th[j].innerText; // Get the text content of the th
+
+            if (txt.toLowerCase().indexOf(input) > -1) {
+                th[j].style.backgroundColor = "#FFA500"; 
+                th[j].style.color = "#efefef"; 
+                th[j].scrollIntoView({ behavior: "smooth", block: "center" }); // Scroll to the matching header
+            } else {
+                th[j].style.backgroundColor = "";
+                th[j].style.color = ""; 
+            }
+        }
+
+        // Loop through all td elements in the row
+        for (j = 0; j < td.length; j++) {
+            txt = td[j].textContent || td[j].innerText; // Get the text content of the td
+
+            if (txt.toLowerCase().indexOf(input) > -1) {
+                rowMatch = true;
+                td[j].style.backgroundColor = "#FFA500"; 
+                td[j].style.color = "#efefef"; 
+                td[j].scrollIntoView({ behavior: "smooth", block: "center" }); // Scroll to the matching cell
+
+                
+                tr[i].style.display = ""; // Ensure the row is shown
+            } else {
+                td[j].style.backgroundColor = ""; 
+                td[j].style.color = ""; 
+            }
+        }
+    }
+
+    // Get all list items in the footer
+    listItems = document.getElementById("footerList").getElementsByTagName("li");
+
+    // Search in the list items
+    for (k = 0; k < listItems.length; k++) {
+        li = listItems[k];
+        listText = li.textContent || li.innerText; // Get the text content of the list item
+
+        // Check if the search input matches the list item text
+        if (listText.toLowerCase().indexOf(input) > -1) {
+            li.style.backgroundColor = "#E65C00"; 
+            li.style.color = "#fefefe";
+            li.scrollIntoView({ behavior: "smooth", block: "center" }); // Scroll to the matching item
+        } else {
+            li.style.backgroundColor = ""; 
+            li.style.color = ""; 
+        }
+    }
+}
+        </script>
+        
+</body>
+</html>
