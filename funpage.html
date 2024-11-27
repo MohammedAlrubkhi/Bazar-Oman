@@ -57,11 +57,43 @@
         <!--displaying image-->
         <img src = "pineapple_guessGame.jpg" id = "guess_image" tag = "guess image"/>
         <!-- displaying text box -->
-        <form>
-          
-
+        <br/>
+        <br/>
+        <form >
+          <div id = "textBoxes">
+            <!--here buttong will be added-->
+          </div>
+          <br/>
+          <br/>
+          <button type ="button" name="submit" class = "btn btn-primary primary-button">Check It!</button>
 
         </form>
+        <script>
+          let guessPicturesNames = ["pineapple"];
+          let level = 0;
+          let flag = false;
+          let wrong = "white";
+          displayBoxes()
+          
+          
+        
+          
+          
+          function displayBoxes(){
+            for(var i =0; i<guessPicturesNames[level].length; i++){
+            document.getElementById("textBoxes").innerHTML += '<input type ="text" class = "btn" onclick = "checkAnswer()" name = "'+i+'" value = "" maxlength="1" style ="width: 45px; height:45px; border-color: rgb(255, 102, 0);background: '+wrong+'";/> ';
+            }
+          }
+          function checkAnswer(){
+            for(var i =0; i<guessPicturesNames[level].length; i++){
+              if(guessPicturesNames[level][i] != document.forms[0][i].value && document.forms[0][i].value.length !=0){
+                document.forms[0][i].style.background = "red"
+              }
+          }
+          }
+          
+
+      </script>
 
 
 
