@@ -32,7 +32,7 @@
             <li><a href="be a partner.html" class="nav-link px-2" id = "headerText" style = "color: black;">Be a patner</a></li>
             <li><a href="contact us.html" class="nav-link px-2" id = "headerText" style = "color: black;">Contact us</a></li>
             <li><a href="about us.html" class="nav-link px-2" id = "headerText" style = "color: black;">About us</a></li>
-            <li><a href="about us.html" class="nav-link px-2" id = "headerText" style = "color: black; font-weight: bolder;">Fun page</a></li>
+            <li><a href="funpage.html" class="nav-link px-2" id = "headerText" style = "color: black; font-weight: bolder;">Fun page</a></li>
           </ul>
           
           <div class="col-md-3 text-end">
@@ -44,7 +44,7 @@
     
     <div class = "container" style = "align-items: center;text-align: center;">
         <h2>Guess It!</h2> <!--header of the game-->
-        <p>Guess the fruit and gain points</p> <!--discription for the game-->
+        <p>Guess the fruit or the vegatable and win</p> <!--discription for the game-->
         <!--dipalying game levels-->
         <p><span id = "level1" style = "font-weight: bolder;">level 1</span>
             <span id = "level2" style = "font-weight:normal;">level 2</span>
@@ -55,7 +55,7 @@
             <span id = "level7"style = "font-weight:normal;">level 7</span>
         </p>
         <!--displaying image-->
-        <img src = "pineapple_guessGame.jpg" id = "guess_image" tag = "guess image"/>
+        <img src = "pineapple_guessGame.jpg" id = "guess_image" tag = "guess image" width = "200px"/>
         <!-- displaying text box -->
         <br/>
         <br/>
@@ -65,11 +65,11 @@
           </div>
           <br/>
           <br/>
-          <button type ="button" name="submit" class = "btn btn-primary primary-button">Check It!</button>
-
+          
         </form>
         <script>
-          let guessPicturesNames = ["pineapple"];
+          let guessPicturesNames = ["pineapple","watermelon","banana","apple","carrot","orange","mango"];
+          let guessPictures = ["pineapple_guessGame.jpg","watermelon_guessGame.jpg","banana_guessGame.jpg","apple_guessGame.jpg","carrot_guessGame.png","orange_guessGame.png","mango_guessGame.jpg"];
           let level = 0;
           let flag = false;
           let wrong = "white";
@@ -80,16 +80,40 @@
           
           
           function displayBoxes(){
+            document.getElementById("textBoxes").innerHTML = "";
             for(var i =0; i<guessPicturesNames[level].length; i++){
-            document.getElementById("textBoxes").innerHTML += '<input type ="text" class = "btn" onclick = "checkAnswer()" name = "'+i+'" value = "" maxlength="1" style ="width: 45px; height:45px; border-color: rgb(255, 102, 0);background: '+wrong+'";/> ';
+            document.getElementById("textBoxes").innerHTML += '<input type ="text" class = "btn" onchange = "checkAnswer()" name = "'+i+'" value = "" maxlength="1" style ="width: 45px; height:45px; border-color: rgb(255, 102, 0);background: '+wrong+'";/> ';
             }
           }
           function checkAnswer(){
+            let numOfCorrect = 0
             for(var i =0; i<guessPicturesNames[level].length; i++){
               if(guessPicturesNames[level][i] != document.forms[0][i].value && document.forms[0][i].value.length !=0){
                 document.forms[0][i].style.background = "red"
+              }if(guessPicturesNames[level][i] == document.forms[0][i].value && document.forms[0][i].value.length !=0){
+                document.forms[0][i].style.background = "rgb(23,255,0)";
+                numOfCorrect++;
               }
+            }
+            if(numOfCorrect == guessPicturesNames[level].length){
+              document.getElementById("guess_image").src = "goodWork_guessGame.png";
+              if(guessPictures.length - 1 != level)
+              document.getElementById("textBoxes").innerHTML = '<br/><br/><button type = "button" class = "btn primary-button" onclick = "nextLevel()">Next Level</button>';
+              else
+              document.getElementById("textBoxes").innerHTML = '<h3>Well Done!! you won the Game</h3>';
+
+            }
           }
+          function nextLevel(){
+            level++;
+            let prevLevel = "level"+level;
+            let thisLevel = level +1;
+            thisLevel = "level" + thisLevel;
+
+            document.getElementById("guess_image").src = guessPictures[level];
+            document.getElementById(prevLevel).style.fontWeight = "normal";
+            document.getElementById(thisLevel).style.fontWeight = "bolder";
+            displayBoxes()
           }
           
 
