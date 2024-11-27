@@ -168,10 +168,10 @@
 
         <br>
         <div class="summary">
-            <h2>Order Summary</h2>
-            <p><strong>Total Price:</strong> $3.80</p>
-            <p><strong>Estimated Delivery Time:</strong> 10-15 minutes</p>
-        </div>
+          <h2>Order Summary</h2>
+          <p><strong>Total Price:</strong> <span class="total-price">$0.00</span></p>
+          <p><strong>Estimated Delivery Time:</strong> 10-15 minutes</p>
+      </div>
 
         <button style="width: 100%; margin-top: 20px;" type="submit" onclick="window.location.href='confermation.html'">Confirm Order</button>
     </div>
@@ -234,6 +234,34 @@
   <!-- Copyright -->
 </footer>
 <!--end of footer-->
+
+<script>
+  // Retrieve cart data from localStorage
+  function getCartData() {
+      const cartData = JSON.parse(localStorage.getItem('cart'));
+      return cartData ? cartData : [];
+  }
+
+  // Calculate the total price dynamically
+  function updateCheckoutTotal() {
+      const cartData = getCartData();
+      let subtotal = 0;
+      
+      cartData.forEach(item => {
+          subtotal += item.itemTotal; // itemTotal is price * quantity
+      });
+
+      const tax = subtotal * 0.05; // 5% tax
+      const total = subtotal + tax;
+
+      // Update the total in the summary
+      document.querySelector('.total-price').innerText = `$${total.toFixed(2)}`;
+  }
+
+  // Initialize checkout total calculation
+  updateCheckoutTotal();
+</script>
+
 
 </body>
 </html>
