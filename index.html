@@ -138,46 +138,38 @@
 
     <!--advertisment part-->
     <div class = "container  shadow" style = "width: 70%;" >
-      <div id="demo" class="carousel slide" data-bs-ride="carousel">
-
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-          <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-          <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-        </div>
-        
-        <!--advertismetn slides-->
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="adv-1.jpg" alt="almzraa advertisment" class="d-block" style="width:100%">
-          </div>
-          <div class="carousel-item">
-            <img src="adv-2.png" alt="Alkhokh advertisment" class="d-block" style="width:100%">
-          </div>
-          <div class="carousel-item">
-            <img src="adv-3.jpg" alt="alshair advertisment" class="d-block" style="width:100%">
-          </div>
-        </div>
-        <!--buttons-->
-        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" style = "background-color: black;"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-          <span class="carousel-control-next-icon" style = "background-color: black;"></span>
-        </button>
-      </div>
+      <img src = "adv-3.jpg" width = "100%" id = "advertismentPhoto"/>
     </div>
-
+    <script>
+      // advertisment photos path
+      let advrtisementSlides = ["adv-1.jpg","adv-2.png","adv-3.jpg"];
+      // set i =0 ->> the 1st photo
+      let i = 0;
+      //call change photo fucntion ever 3000 ms(3 seconds)
+      setInterval(changePhoto,3000);
+      // function to change the photo
+      function changePhoto(){
+        document.getElementById("advertismentPhoto").src = advrtisementSlides[i];
+          i++;
+          if(i == 3){
+            i = 0;
+          }
+      }
+    </script>
+    <!-- End of advertisment part -->
+    <!-- moving text part -->
     <div>
     <br/>
     <br/>
     <br/>
-    <h5 id = "movingText" style = "text-align: center;"></h5>
+    <h5 style = "text-align: center;"><pre id = "movingText" ></pre></h5>
     </div>
     <script>
-        const time = new Date();
+        // initalize time with date class
+        time = new Date();
+        // defining day variable
         let day = "";
-        
+        // check which day is today using some conditons
         if (time.getDay() == 0) day = "Sunday";
         else if (time.getDay() == 1) day = "Monday";
         else if (time.getDay() == 2) day = "Tuesday";
@@ -185,9 +177,38 @@
         else if (time.getDay() == 4) day = "Thursday";
         else if (time.getDay() == 5) day = "Friday";
         else if (time.getDay() == 6) day = "Saturday";
-        let text = 'Welcome to Bazar Oman website! Today is '+day+', and the time is '+time.getHours()+':'+time.getMinutes()+'.';
-        document.getElementById("movingText").innerHTML = text;
+        // writing the full text in fullText variable
+        let fullText = '                         Welcome to Bazar Oman website! Today is '+day+', and the time is '+time.getHours()+':'+time.getMinutes()+'.';
+        // copying the fullText value to movingText varaible, in order to make the process only in the movingText variable without affecting the original text
+        let movingText = fullText
+        // update the block of text in html to the value stored in fullText variable
+        document.getElementById("movingText").innerHTML = fullText;
+        // call moveText function every 100 ms
+        setInterval(moveText, 100);
+        // this function holds the process of moving the text
+        function moveText(){
+          // move last char in fullText to the first and keep the remaining part same
+          movingText = movingText.charAt(movingText.length-1) +movingText.substr(0,movingText.length-1);
+          // update block of html text to the new data of fullText
+          document.getElementById("movingText").innerHTML = movingText
+          // to update the time contiuosouly
+          if(movingText == fullText){
+            // calling update time function
+            updateTime();
+          }
+
+        }
+        //this function updates the time
+        function updateTime(){
+          //re-initalize time with date class
+          time = new Date();
+          //set the new time to movingText variable
+          fullText = '                         Welcome to Bazar Oman website! Today is '+day+', and the time is '+time.getHours()+':'+time.getMinutes()+'.';
+          movingText = fullText;
+        }
     </script>
+    <!-- End of moving text part -->
+
 
     <!-- Footer -->
 <footer class="bg-dark text-white text-center text-lg-start" style="margin: 0; padding: 0; margin-top: 5rem;"> 
