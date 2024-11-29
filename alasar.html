@@ -195,55 +195,55 @@
         <img src="broccoli.jpg" alt="broccoli">
         <div class="item-name">Broccoli</div>
         <div class="item-price">$1.69 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Broccoli', 1.69, 'broccoli.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="peas.jpg" alt="peas">
         <div class="item-name">Peas</div>
         <div class="item-price">$0.89 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Peas', 0.89, 'peas.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="banana.png" alt="banana">
         <div class="item-name">Banana</div>
         <div class="item-price">$1.70 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Banana', 1.70, 'banana.png')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="blueberry.png" alt="blueberry">
         <div class="item-name">Blueberry</div>
         <div class="item-price">$0.15 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Blueberry', 0.15, 'blueberry.png')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="avocado.jpg" alt="avocado">
         <div class="item-name">Avocado</div>
         <div class="item-price">$2.90 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Avocado', 2.90, 'avocado.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="berry.jpg" alt="cherry">
         <div class="item-name">Cherry</div>
         <div class="item-price">$0.35 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Cherry', 0.35, 'berry.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="onion.jpg" alt="onion">
         <div class="item-name">Onion</div>
         <div class="item-price">$0.80 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Onion', 0.80, 'onion.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="corn.jpg" alt="corn">
         <div class="item-name">Corn</div>
         <div class="item-price">$3.89 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Corn', 3.89, 'corn.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="cabbage.jpg" alt="cabbage">
         <div class="item-name">Cabbage</div>
         <div class="item-price">$4.49 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Cabbage', 0.89, 'cabbage.jpg')">Add to Cart</button>
     </div>
 
     
@@ -381,15 +381,47 @@ function footerTable() {
 
 
 <script>
-  let cartItemCount = localStorage.getItem('cartItemCount') ? parseInt(localStorage.getItem('cartItemCount')) : 0;
-  document.getElementById('cartCounter').textContent = cartItemCount;
-
-  function addToCart() {
-      cartItemCount++;
-      localStorage.setItem('cartItemCount', cartItemCount);
-      document.getElementById('cartCounter').textContent = cartItemCount;
+    // Function to add item to the cart
+  function addToCart(itemName, itemPrice, itemImage) {
+      // Get current cart data from localStorage (if any)
+      let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      // Find if the item is already in the cart
+      let existingItem = cartData.find(item => item.name === itemName);
+  
+      if (existingItem) {
+          // If the item is already in the cart, increment the quantity
+          existingItem.quantity += 1;
+      } else {
+          // Otherwise, add the item with a quantity of 1
+          cartData.push({ name: itemName, price: itemPrice, image:itemImage, quantity: 1 });
+      }
+  
+      // Save the updated cart data to localStorage
+      localStorage.setItem('cart', JSON.stringify(cartData));
+  
+      // Update the cart counter
+      updateCartCounter();
   }
-</script>
+  
+  // Function to update the cart counter in the UI
+  function updateCartCounter() {
+      // Get the cart data from localStorage
+      let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      // Calculate the total number of items in the cart
+      let totalItems = cartData.reduce((total, item) => total + item.quantity, 0);
+  
+      // Update the cart counter text in the element with id 'cartCounter'
+      document.getElementById('cartCounter').textContent = totalItems;
+  }
+  
+  // Call this function on page load to update the counter if there are already items in the cart
+  window.onload = function() {
+      updateCartCounter();
+  };
+  
+  </script>
 
 </body>
 </html>

@@ -171,7 +171,7 @@
         <br>
         <div class="summary">
           <h2>Order Summary</h2>
-          <p><strong>Total Price:</strong> <span class="total-price">$0.00</span></p>
+          <p><strong>Total Price:</strong> <span class="totalPrice">$0.00</span></p>
           <p><strong>Estimated Delivery Time:</strong> 10-15 minutes</p>
       </div>
 
@@ -310,30 +310,39 @@ function footerTable() {
 
 
 <script>
-  // Retrieve cart data from localStorage
-  function getCartData() {
-      const cartData = JSON.parse(localStorage.getItem('cart'));
-      return cartData ? cartData : [];
-  }
+function updateCheckoutTotal() {
+    const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Log cart data to ensure it's being retrieved
+    console.log("Cart Data:", cartData);  
 
-  // Calculate the total price dynamically
-  function updateCheckoutTotal() {
-      const cartData = getCartData();
-      let subtotal = 0;
-      
-      cartData.forEach(item => {
-          subtotal += item.itemTotal; // itemTotal is price * quantity
-      });
+    // If cart is empty, display 0.00
+    if (cartData.length === 0) {
+        console.log("No items in the cart.");
+        document.querySelector('.totalPrice').innerText = "$0.00";
+        return;
+    }
 
-      const tax = subtotal * 0.05; // 5% tax
-      const total = subtotal + tax;
+    let subtotal = 0;
 
-      // Update the total in the summary
-      document.querySelector('.total-price').innerText = `$${total.toFixed(2)}`;
-  }
+    // Calculate the total price by iterating through the cart items
+    cartData.forEach(item => {
+        console.log("Item:", item);  // Log each item for debugging
+        if (item && item.itemTotal && !isNaN(item.itemTotal)) {
+            subtotal += parseFloat(item.itemTotal);  // Add item total to subtotal
+        }
+    });
 
-  // Initialize checkout total calculation
-  updateCheckoutTotal();
+    console.log("Subtotal:", subtotal);  // Log subtotal before updating the total price
+
+    // Update the total price on the page
+    document.querySelector('.totalPrice').innerText = `$${subtotal.toFixed(2)}`;
+}
+
+
+// Initialize the checkout total when the page loads
+updateCheckoutTotal();
+
 </script>
 
 

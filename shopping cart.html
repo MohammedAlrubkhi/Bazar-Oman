@@ -75,11 +75,6 @@
         .count span {
             margin: 0 10px;
         }
-        .total, .tax {
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-top: 20px;
-        }
         button {
             background-color: #4CAF50; /* Green */
             color: white;
@@ -152,60 +147,22 @@
 
 <div class="container">
     <div class="cart">
-        <h2>Your Cart:</h2>
-        <div class="cart-item" data-price="1.00" data-name="Apples">
-            <img src="apple.png" alt="Apples">
-            <span>Apples</span>
-            <div class="count">
-              <button class="decrease">-</button>
-              <span class="quantity">1</span>
-              <button class="increase">+</button>
+        
+        <div id="cartContainer" class="cart-container">
+            <h2>Your Shopping Cart:</h2>
+            <br>
+            <div id="cartItems" class="cart-items">
+                <!-- Cart items will be dynamically added here -->
             </div>
-            <span class="price">$1.00</span>
-            <button class="delete-btn">&#x1F5D1;</button> <!-- Trash emoji -->
-        </div>
-        <div class="cart-item" data-price="0.50" data-name="Bananas">
-          <img src="banana.png" alt="Bananas">
-          <span>Bananas</span>
-          <div class="count">
-              <button class="decrease">-</button>
-              <span class="quantity">1</span>
-              <button class="increase">+</button>
-          </div>
-          <span class="price">$0.50</span>
-          <button class="delete-btn">&#x1F5D1;</button> <!-- Trash emoji -->
-        </div>
-        <div class="cart-item" data-price="0.30" data-name="Carrots">
-          <img src="carrot.png" alt="Carrots">
-          <span>Carrots</span>
-          <div class="count">
-              <button class="decrease">-</button>
-              <span class="quantity">1</span>
-              <button class="increase">+</button>
-          </div>
-          <span class="price">$0.30</span>
-          <button class="delete-btn">&#x1F5D1;</button> <!-- Trash emoji -->
-        </div>
-        <div class="cart-item" data-price="1.20" data-name="Spinach">
-            <img src="spinach.png" alt="Spinach">
-            <span>Spinach</span>
-            <div class="count">
-              <button class="decrease">-</button>
-              <span class="quantity">1</span>
-              <button class="increase">+</button>
-            </div>
-            <span class="price">$1.20</span>
-            <button class="delete-btn">&#x1F5D1;</button>
+        
+            <button id="clearCart" onclick="clearCart()">Clear Cart</button>
         </div>
 
         <!-- Dividing Line -->
         <div class="divider"></div>
 
-        <div class="tax">
-            Tax (5%): $0.15
-        </div>
-        <div class="total">
-            Total: $3.15
+        <div style="font-weight: bold; font-size: 1.2em; margin-top: 20px;" id="cartTotal" class="cart-total">
+            Total: $<span id="totalPrice">0.00</span>
         </div>
 
         <div class="checkout-option">
@@ -217,6 +174,7 @@
                 <input type="radio" name="payment" value="debit_credit_card"> Debit/Credit Card
             </label>
         </div>
+        
         <div class="checkout-btn">
             <button onclick="window.location.href='checkout.html'">Checkout</button>
         </div>
@@ -278,7 +236,7 @@
 
 
 
-  <script>
+<script>
 function footerTable() {
   var td, tr, th, i, j, txt, table;
   var listItems, li, k, listText;
@@ -354,72 +312,99 @@ function footerTable() {
 
 
 <script>
-  // Update Total Price including Tax
-  // Update Total Price including Tax and save cart data to localStorage
-function updateTotal() {
-    let subtotal = 0;
-    let cartData = [];
-    const cartItems = document.querySelectorAll('.cart-item');
-    cartItems.forEach(item => {
-        const quantity = item.querySelector('.quantity').innerText;
-        const price = parseFloat(item.getAttribute('data-price'));
-        const name = item.getAttribute('data-name');
-        const itemTotal = price * parseInt(quantity);
-
-        // Store each cart item's data
-        cartData.push({ name, quantity: parseInt(quantity), price, itemTotal });
-        subtotal += itemTotal;
-    });
-
-    const tax = subtotal * 0.05; // 5% tax
-    const total = subtotal + tax;
-
-    // Save cart data in localStorage
-    localStorage.setItem('cart', JSON.stringify(cartData));
-
-    // Update total display
-    document.querySelector('.total').innerText = `Total: $${total.toFixed(2)}`;
-    document.querySelector('.tax').innerText = `Tax (5%): $${tax.toFixed(2)}`;
-}
-
-// Initialize total calculation
-updateTotal();
-
-
-  // Increase Quantity
-  document.querySelectorAll('.increase').forEach(button => {
-      button.addEventListener('click', () => {
-          const quantityElement = button.previousElementSibling;
-          let quantity = parseInt(quantityElement.innerText);
-          quantityElement.innerText = quantity + 1;
-          updateTotal();
+    // Function to load and display items from the cart
+  function loadCart() {
+      // Get cart data from localStorage
+      let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      // Get the cart container and items display area
+      let cartItemsContainer = document.getElementById('cartItems');
+      let totalPriceElement = document.getElementById('totalPrice');
+  
+      // Clear the cart items container before adding updated items
+      cartItemsContainer.innerHTML = '';
+  
+      // Total price variable
+      let totalPrice = 0;
+  
+      // Loop through cart items and display them
+      cartData.forEach(item => {
+          item.itemTotal = item.price * item.quantity;
+          let itemDiv = document.createElement('div');
+          itemDiv.classList.add('cart-item');
+          
+          itemDiv.innerHTML = `
+              <img src="${item.image}" alt="${item.name}" class="cart-item-image">  <!-- Display image -->
+              <div class="item-name">${item.name}</div>
+              <div class="item-price">$${item.price}</div>
+              <div class="item-quantity">
+                  <button onclick="updateQuantity('${item.name}', -1)">-</button>
+                  <span>${item.quantity}</span>
+                  <button onclick="updateQuantity('${item.name}', 1)">+</button>
+              </div>
+              <button onclick="removeItem('${item.name}')">&#x1F5D1;</button>
+          `;
+  
+          cartItemsContainer.appendChild(itemDiv);
+  
+          // Add the price of this item to the total
+          totalPrice += item.price * item.quantity;
+          localStorage.setItem('cart', JSON.stringify(cartData));
       });
-  });
+  
+      // Update the total price display
+      totalPriceElement.textContent = totalPrice.toFixed(2);
 
-  // Decrease Quantity
-  document.querySelectorAll('.decrease').forEach(button => {
-      button.addEventListener('click', () => {
-          const quantityElement = button.nextElementSibling;
-          let quantity = parseInt(quantityElement.innerText);
-          if (quantity > 1) {
-              quantityElement.innerText = quantity - 1;
-              updateTotal();
-          }
-      });
-  });
+      
+  }
+  
+  // Function to update the quantity of an item in the cart
+  function updateQuantity(itemName, change) {
+      // Get cart data from localStorage
+      let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      // Find the item in the cart and update its quantity
+      let item = cartData.find(item => item.name === itemName);
+      if (item) {
+          item.quantity += change;
+          if (item.quantity < 1) item.quantity = 1;  // Prevent quantity from going below 1
+      }
+  
+      // Save the updated cart data back to localStorage
+      localStorage.setItem('cart', JSON.stringify(cartData));
+  
+      // Reload the cart to reflect the changes
+      loadCart();
+  }
+  
+  // Function to remove an item from the cart
+  function removeItem(itemName) {
+      // Get cart data from localStorage
+      let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      // Filter out the item that needs to be removed
+      cartData = cartData.filter(item => item.name !== itemName);
+  
+      // Save the updated cart data back to localStorage
+      localStorage.setItem('cart', JSON.stringify(cartData));
+  
+      // Reload the cart to reflect the changes
+      loadCart();
+  }
+  
+  // Function to clear all items from the cart
+  function clearCart() {
+      // Clear the cart data from localStorage
+      localStorage.removeItem('cart');
+  
+      // Reload the cart (which will now be empty)
+      loadCart();
+  }
 
-  // Delete Item
-  document.querySelectorAll('.delete-btn').forEach(button => {
-      button.addEventListener('click', () => {
-          const cartItem = button.closest('.cart-item');
-          cartItem.remove();
-          updateTotal();
-      });
-  });
-
-  // Initialize total calculation
-  updateTotal();
-
+  // Call this function when the page loads to display the cart
+  window.onload = function() {
+      loadCart();
+  };
 </script>
 
 </body>

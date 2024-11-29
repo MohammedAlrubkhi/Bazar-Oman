@@ -195,37 +195,37 @@
         <img src="peas.jpg" alt="peas">
         <div class="item-name">Peas</div>
         <div class="item-price">$0.20 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Peas', 0.20, 'peas.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="onion.jpg" alt="onion">
         <div class="item-name">Onion</div>
         <div class="item-price">$0.70 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Onion', 0.70, 'onion.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="lemon.jpg" alt="lemon">
         <div class="item-name">Lemon</div>
         <div class="item-price">$0.90 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Lemon', 0.90, 'lemon.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="apple.png" alt="apple">
         <div class="item-name">Apple</div>
         <div class="item-price">$1.30 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Apple', 1.30, 'apple.png')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="watermelon.jpg" alt="watermelon">
         <div class="item-name">Watermelon</div>
         <div class="item-price">$11.99 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Watermelon', 11.99, 'watermelon.jpg')">Add to Cart</button>
     </div>
     <div class="item-card">
         <img src="grape.jpg" alt="grape">
         <div class="item-name">Grape</div>
         <div class="item-price">$0.03 each</div>
-        <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        <button class="add-to-cart-btn" onclick="addToCart('Grape', 0.03, 'grape.jpg')">Add to Cart</button>
     </div>
     
     
@@ -362,15 +362,47 @@ function footerTable() {
 
 
 <script>
-  let cartItemCount = localStorage.getItem('cartItemCount') ? parseInt(localStorage.getItem('cartItemCount')) : 0;
-  document.getElementById('cartCounter').textContent = cartItemCount;
-
-  function addToCart() {
-      cartItemCount++;
-      localStorage.setItem('cartItemCount', cartItemCount);
-      document.getElementById('cartCounter').textContent = cartItemCount;
+    // Function to add item to the cart
+  function addToCart(itemName, itemPrice, itemImage) {
+      // Get current cart data from localStorage (if any)
+      let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      // Find if the item is already in the cart
+      let existingItem = cartData.find(item => item.name === itemName);
+  
+      if (existingItem) {
+          // If the item is already in the cart, increment the quantity
+          existingItem.quantity += 1;
+      } else {
+          // Otherwise, add the item with a quantity of 1
+          cartData.push({ name: itemName, price: itemPrice, image:itemImage, quantity: 1 });
+      }
+  
+      // Save the updated cart data to localStorage
+      localStorage.setItem('cart', JSON.stringify(cartData));
+  
+      // Update the cart counter
+      updateCartCounter();
   }
-</script>
+  
+  // Function to update the cart counter in the UI
+  function updateCartCounter() {
+      // Get the cart data from localStorage
+      let cartData = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      // Calculate the total number of items in the cart
+      let totalItems = cartData.reduce((total, item) => total + item.quantity, 0);
+  
+      // Update the cart counter text in the element with id 'cartCounter'
+      document.getElementById('cartCounter').textContent = totalItems;
+  }
+  
+  // Call this function on page load to update the counter if there are already items in the cart
+  window.onload = function() {
+      updateCartCounter();
+  };
+  
+  </script>
 
 </body>
 </html>
