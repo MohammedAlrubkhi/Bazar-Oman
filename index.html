@@ -168,6 +168,27 @@
       </div>
     </div>
 
+    <div>
+    <br/>
+    <br/>
+    <br/>
+    <h5 id = "movingText" style = "text-align: center;"></h5>
+    </div>
+    <script>
+        const time = new Date();
+        let day = "";
+        
+        if (time.getDay() == 0) day = "Sunday";
+        else if (time.getDay() == 1) day = "Monday";
+        else if (time.getDay() == 2) day = "Tuesday";
+        else if (time.getDay() == 3) day = "Wednesday";
+        else if (time.getDay() == 4) day = "Thursday";
+        else if (time.getDay() == 5) day = "Friday";
+        else if (time.getDay() == 6) day = "Saturday";
+        let text = 'Welcome to Bazar Oman website! Today is '+day+', and the time is '+time.getHours()+':'+time.getMinutes()+'.';
+        document.getElementById("movingText").innerHTML = text;
+    </script>
+
     <!--footer-->
     <br/>
     <br/>
