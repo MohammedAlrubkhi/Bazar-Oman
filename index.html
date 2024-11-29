@@ -141,6 +141,7 @@
     <div class = "container  shadow" style = "width: 70%;" >
       <img src = "adv-3.jpg" width = "100%" id = "advertismentPhoto"/>
     </div>
+    <!-- java script code for advrtisment part -->
     <script>
       // advertisment photos path
       let advrtisementSlides = ["adv-1.jpg","adv-2.png","adv-3.jpg"];
@@ -150,21 +151,24 @@
       setInterval(changePhoto,3000);
       // function to change the photo
       function changePhoto(){
+        // change the html img src to the new path
         document.getElementById("advertismentPhoto").src = advrtisementSlides[i];
-          i++;
+          i++; //increment i
+          //check if i exceeds the max length in the advrtisementSlides list, then set i =0
           if(i == 3){
-            i = 0;
+            i = 0; // set i to 1st image
           }
       }
     </script>
     <!-- End of advertisment part -->
-    <!-- moving text part -->
+    <!-- text-banner part -->
     <div>
     <br/>
     <br/>
     <br/>
     <h5 style = "text-align: center;"><pre id = "movingText" ></pre></h5>
     </div>
+    <!-- java script code for the text-banner part -->
     <script>
         // initalize time with date class
         time = new Date();
@@ -208,7 +212,7 @@
           movingText = fullText;
         }
     </script>
-    <!-- End of moving text part -->
+    <!-- End of  text-banner part -->
 
 
     <!-- Footer -->
