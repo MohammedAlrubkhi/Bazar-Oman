@@ -19,35 +19,44 @@
 </head>
 <body>
     <!--page header which include logo and all direct access pages in the site-->
-    <div class="container">
-        <header class="d-flex flex-wrap  justify-content-center justify-content-md-between py-3 mb-4">
-          <div class="col-md-3 mb-2 mb-md-0">
-            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-              <img src = "logo.png" class="bi" height="32"/>
-            </a>
-          </div>
-    
-          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="index.html" class="nav-link px-2" id = "headerText" style = "color: black;">Home</a></li>
-            <li><a href="markets.html" class="nav-link px-2"  id = "headerText" style = "color: black;">Markets</a></li>
-            <li><a href="shopping cart.html" class="nav-link px-2" id = "headerText" style = "color: black;">Shopping cart</a></li>
-            <li><a href="account.html" class="nav-link px-2"id = "headerText" style = "color:black" >Account</a></li>
-            <li><a href="be a partner.html" class="nav-link px-2" id = "headerText" style = "color: black;">Be a patner</a></li>
-            <li><a href="contact us.html" class="nav-link px-2" id = "headerText" style = "color: black;">Contact us</a></li>
-            <li><a href="about us.html" class="nav-link px-2" id = "headerText" style = " color:black">About us</a></li>
-            <li><a href="funpage.html" class="nav-link px-2" id = "headerText" style = "color: black;">Fun page</a></li>
-            <li><a href="questioner page.html" class="nav-link px-2" id ="headerText" style = "color: black; font-weight: bolder;">Questioner Page</a></li>
-        </ul>
-          
-          <div class="col-md text-end">
-            <a href="login.html"><button type="button" class="btn btn-outline-primary normal-button" style = "color: black;">Login</button></a>
-            <a href="signup.html"><button type="button" class="btn btn-primary primary-button">Sign-up</button></a>
-          </div>
-        </header>
-      </div>
-      <!--end of header-->
+    <div class="big-banner" style = "background-attachment:fixed;">
+        <div class = "container">
+          <header class="d-flex flex-wrap  justify-content-center justify-content-md-between py-3 mb-4 ">
+            <div class="col-md-3 mb-2 mb-md-0">
+              <a href="index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <img src = "logo.png" class="bi" height="32"/>
+              </a>
+            </div>
+      
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="index.html" class="nav-link px-2" id = "headerText" style = "font-weight: bolder;" >Home</a></li>
+              <li><a href="markets.html" class="nav-link px-2"  id = "headerText">Markets</a></li>
+              <li><a href="shopping cart.html" class="nav-link px-2" id = "headerText">Shopping cart</a></li>
+              <li><a href="account.html" class="nav-link px-2"id = "headerText" >Account</a></li>
+              <li><a href="be a partner.html" class="nav-link px-2" id = "headerText">Be a patner</a></li>
+              <li><a href="contact us.html" class="nav-link px-2" id = "headerText">Contact us</a></li>
+              <li><a href="about us.html" class="nav-link px-2" id = "headerText">About us</a></li>
+              <li><a href="funpage.html" class="nav-link px-2" id = "headerText" style = "color: white;">Fun page</a></li>
+              <li><a href="questioner page.html" class="nav-link px-2" id ="headerText" style = "color: white;">Questioner Page</a></li>
+            </ul>
+            
+            <div class="col-md text-end">
+              <a href="login.html"><button type="button" class="btn btn-outline-primary normal-button">Login</button></a>
+              <a href="signup.html"><button type="button" class="btn btn-primary primary-button">Sign-up</button></a>
+            </div>
+          </header>
+          <header class="border-bottom">
+              <br/><br/><br/><br/>
+              <div style = "text-align: center;">
+              <h1 style = "color: white;">Best Groceries Website</h1>
+              </div>
+              <br/><br/><br/><br/><br/><br/><br/>
+          </header>
+        </div>
+        </div>
+        <!--end of header-->
 
-        <br/><br/>
+        
         <form id="demo" method="POST" class="form-group" action="mailto:s140652@student.squ.edu.om">
             <div class="container">
                 <div class="d-flex justify-content-center align-items-center" >
@@ -60,7 +69,14 @@
                     <input type="number" class="form-control" id="phoneNumber" placeholder="Enter Your Phone Number" name="phone number" required>
                 </div>
                 <hr>
-                
+
+                <!-- Email input -->
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label highlight">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter you EMAIL" name="email" >
+                </div>
+                <hr>
+
                 <!-- password input -->
                 <div class="mb-3 mt-3">
                     <label for="password" class="form-label highlight">Password:</label>
@@ -181,20 +197,29 @@
             const feedback = document.getElementById('feedback');
             const pass = document.getElementById('password');
             const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/; // Password pattern
+            const email = document.getElementById('email');
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             
             form.addEventListener('submit', function(event) {
-                // Password validation
-                if (!pattern.test(pass.value)) {
-                    alert('Password must contain at least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long.');
-                    event.preventDefault(); //The form submission is blocked until all validation criteria are met.
-                    return;
-                }
-                
                 // Phone number validation
                 //the phone number must start with 9 or 7 and be exactly 8 digits long
                 if (!/^[97]\d{7}$/.test(phone.value)) {
                     alert("Phone number must start with 9 or 7 and be 8 digits long.");
                     event.preventDefault();
+                    return;
+                }
+
+                // Email validation
+                if (!emailPattern.test(email.value)) {
+                    alert("Please enter a valid email address.");
+                    event.preventDefault();
+                    return;
+                }
+
+                // Password validation
+                if (!pattern.test(pass.value)) {
+                    alert('Password must contain at least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long.');
+                    event.preventDefault(); //The form submission is blocked until all validation criteria are met.
                     return;
                 }
                 
