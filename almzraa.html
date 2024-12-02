@@ -279,6 +279,52 @@
 
 
   <script>
+      // Data arrays for the footer content
+var logos = ["logo.png"];  // Logo for the footer
+var title = "Quick Access"; 
+var description = "Welcome to Bazar Oman, your trusted destination for fresh, high-quality groceries in Oman. We are committed to making your grocery shopping experience simpler, faster, and more convenient. Our mission is to bring the freshest vegetables and fruits directly from the best local markets to your doorstep, ensuring you enjoy 100% fresh and healthy produce every time.";
+var links = [
+    { text: "Home", href: "index.html" },
+    { text: "Account", href: "account.html" },
+    { text: "Be a partner", href: "be a partner.html" },
+    { text: "Contact us", href: "contact us.html" },
+    { text: "About us", href: "about us.html" },
+    { text: "Questioner page", href: "questioner page.html" },
+    { text: "Shopping cart", href: "shopping cart.html" }
+];
+
+// Get the table element by ID
+var table = document.getElementById("footerTable");
+
+// Create the first row with logo and title
+var row1 = "<tr>";
+row1 += `
+    <th style="text-align: left;"><img src="${logos[0]}" width="8%" alt="Logo"></th>
+    <th class="orange-color" style="text-align: left;"><h4><strong>${title}</strong></h4></th>
+`;
+row1 += "</tr>";
+
+// Create the second row with description and links
+var row2 = "<tr>";
+row2 += `
+    <td style="text-align: left;">${description}</td>
+    <td style="text-align: left;">
+        <ul class="list-unstyled mb-0" id="footerList">
+`;
+
+// Add the links dynamically to the list
+for (var i = 0; i < links.length; i++) {
+    row2 += `<li><a href="${links[i].href}" class="text-white" style="text-decoration-line: none;">${links[i].text}</a></li>`;
+}
+
+// Close the list and the row
+row2 += "</ul></td></tr>";
+
+// Combine both rows and insert into the table
+table.innerHTML = row1 + row2;
+
+table.style.marginLeft = "0"; 
+      
 function footerTable() {
   var td, tr, th, i, j, txt, table;
   var listItems, li, k, listText;
