@@ -29,13 +29,13 @@
             </div>
       
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="index.html" class="nav-link px-2" id = "headerText" style = "font-weight: bolder;" >Home</a></li>
+              <li><a href="index.html" class="nav-link px-2" id = "headerText"  >Home</a></li>
               <li><a href="markets.html" class="nav-link px-2"  id = "headerText">Markets</a></li>
               <li><a href="shopping cart.html" class="nav-link px-2" id = "headerText">Shopping cart</a></li>
               <li><a href="account.html" class="nav-link px-2"id = "headerText" >Account</a></li>
               <li><a href="be a partner.html" class="nav-link px-2" id = "headerText">Be a patner</a></li>
               <li><a href="contact us.html" class="nav-link px-2" id = "headerText">Contact us</a></li>
-              <li><a href="about us.html" class="nav-link px-2" id = "headerText">About us</a></li>
+              <li><a href="about us.html" class="nav-link px-2" id = "headerText" style = "font-weight: bolder;">About us</a></li>
               <li><a href="funpage.html" class="nav-link px-2" id = "headerText" style = "color: white;">Fun page</a></li>
               <li><a href="questioner page.html" class="nav-link px-2" id ="headerText" style = "color: white;">Questioner Page</a></li>
             </ul>
@@ -130,25 +130,30 @@
 </script>
 
   <script>
-    var photos = ["profile2.png", "profile2.png", "profile2.png"];
-    var names = ["Musaab Al Siyabi", "Faisal Al Breiki", "Mohammed Al Rubkhi"];
-    var positions = ["Co-founder", "Co-founder", "Co-founder"];
+    // Data for photos, names, and positions
+var photos = ["profile2.png", "profile2.png", "profile2.png"];
+var names = ["Musaab Al Siyabi", "Faisal Al Breiki", "Mohammed Al Rubkhi"];
+var positions = ["Co-founder", "Co-founder", "Co-founder"];
 
-    var table = document.getElementById("aboutTable");
-    var row = "<tr>";
+// Get the table element where content will be inserted
+var table = document.getElementById("aboutTable");
+var row = "<tr>";
 
-    for (var i = 0; i < photos.length; i++) {
-        row += `
-            <td style="text-align: center; vertical-align: middle; padding: 10px;"> 
-                <img src="${photos[i]}" alt="${names[i]}" >
-                <h3 >${names[i]}</h3>
-                <p >${positions[i]}</p>
-            </td>
-        `;
-    }
+// Loop through the arrays and create table cells for each person
+for (var i = 0; i < photos.length; i++) {
+    row += `
+        <td style="text-align: center; vertical-align: middle; padding: 10px;"> 
+            <img src="${photos[i]}" alt="${names[i]}" >
+            <h3>${names[i]}</h3>
+            <p>${positions[i]}</p>
+        </td>
+    `;
+}
 
-    row += "</tr>";
-    table.innerHTML = row;
+// Add the row to the table
+row += "</tr>";
+table.innerHTML = row;
+
 
     // Function to search in "aboutTable"
     function searchAboutTable() {
