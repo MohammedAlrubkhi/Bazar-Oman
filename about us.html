@@ -7,6 +7,13 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> 
         <style>
             @import url('headerText.css');
+            #aboutTable td {
+                text-align: center;
+                vertical-align: middle;
+                padding: 20px;
+            }
+           
+
         </style>
     </head>
 
@@ -69,28 +76,15 @@
             <a href="mailto:s140652@student.squ.edu.om">s140652@student.squ.edu.om</a> <br>
         </p>
         <hr>
-    
-        <p><h1 class="row d-flex justify-content-center align-items-center">Founders</h1></p>
-    
-        <table style="width: auto; margin: 0 auto; border-collapse: collapse;" id="aboutTable">
-          <tr>
-              <td style="text-align: center; padding: 10px;">
-                  <img src="profile2.png" alt="Musaab Al Siyabi" style="width: auto; height: auto;">
-                  <h3>Musaab Al Siyabi</h3>
-                  <p>Co-founder</p>
-              </td>
-              <td style="text-align: center; padding: 10px;">
-                  <img src="profile2.png" alt="Faisal Al Breiki" style="width: auto; height: auto;">
-                  <h3>Faisal Al Breiki</h3>
-                  <p>Co-founder</p>
-              </td>
-              <td style="text-align: center; padding: 10px;">
-                  <img src="profile2.png" alt="Mohammed Al Rubkhi" style="width: auto; height: auto;">
-                  <h3>Mohammed Al Rubkhi</h3>
-                  <p>Co-founder</p>
-              </td>
-          </tr>
-        </table>
+        <!--Table using javaScript-->
+        <div class="container text-center">
+            <h1 style="margin-bottom: 2rem;">Founders</h1> 
+            <div class="d-flex justify-content-center">
+                <table id="aboutTable" style="border-spacing: 20px;"> 
+                    <!-- Table rows will be generated using javaScript -->
+                </table>
+            </div>
+        </div>
 
     
         <hr>
@@ -111,31 +105,15 @@
           </div>
       </div><br/>
 
-      <div>
-          <table style="align-content: center;" id="footerTable">
-              <tr>
-                  <th><img src="logo.png" width="10%"/></th>
-                  <th class="orange-color"><h4><strong>Quick Access</strong></h4></th>
-              </tr>
-              <tr>
-                  <td>
-                      Welcome to Bazar Oman, your trusted destination for fresh, high-quality groceries<br/> in Oman. We are committed to making your grocery shopping experience simpler,<br/> faster, and more convenient. Our mission is to bring the freshest vegetables and <br/>fruits directly from the best local markets to your doorstep, ensuring you enjoy 100% <br/>fresh and healthy produce every time.
-                  </td>
-                  <td>
-                      <ul class="list-unstyled mb-0" id="footerList">
-                          <li><a href="index.html" class="text-white" style="text-decoration-line: none;">Home</a></li>
-                          <li><a href="account.html" class="text-white" style="text-decoration-line: none;">Account</a></li>
-                          <li><a href="be a partner.html" class="text-white" style="text-decoration-line: none;">Be a partner</a></li>
-                          <li><a href="contact us.html" class="text-white" style="text-decoration-line: none;">Contact us</a></li>
-                          <li><a href="about us.html" class="text-white" style="text-decoration-line: none;">About us</a></li>
-                          <li><a href="questioner page.html" class="text-white" style="text-decoration-line: none;">questioner page</a></li>
-                          <li><a href="shopping cart.html" class="text-white" style="text-decoration-line: none;">shopping cart</a></li>
-                      </ul>
-                  </td>
-              </tr>
-          </table>
-          <br/>
-      </div>
+      <!--Table using JavaScript-->
+    <div class="container text-center">
+        <div class="d-flex justify-content-center">
+            <table id="footerTable" style="border-spacing: 20px;"> 
+                <!-- Table rows will be generated using JavaScript -->
+            </table>
+        </div>
+    </div>
+
   </div>
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
@@ -148,7 +126,30 @@
 
 
 
+
+</script>
+
   <script>
+    var photos = ["profile2.png", "profile2.png", "profile2.png"];
+    var names = ["Musaab Al Siyabi", "Faisal Al Breiki", "Mohammed Al Rubkhi"];
+    var positions = ["Co-founder", "Co-founder", "Co-founder"];
+
+    var table = document.getElementById("aboutTable");
+    var row = "<tr>";
+
+    for (var i = 0; i < photos.length; i++) {
+        row += `
+            <td style="text-align: center; vertical-align: middle; padding: 10px;"> 
+                <img src="${photos[i]}" alt="${names[i]}" >
+                <h3 >${names[i]}</h3>
+                <p >${positions[i]}</p>
+            </td>
+        `;
+    }
+
+    row += "</tr>";
+    table.innerHTML = row;
+
     // Function to search in "aboutTable"
     function searchAboutTable() {
         var td, tr, i, j, txt, table;
@@ -187,6 +188,55 @@
             }
         }
     }
+
+
+    // Data arrays for the footer content
+var logos = ["logo.png"];  // Logo for the footer
+var title = "Quick Access"; 
+var description = "Welcome to Bazar Oman, your trusted destination for fresh, high-quality groceries in Oman. We are committed to making your grocery shopping experience simpler, faster, and more convenient. Our mission is to bring the freshest vegetables and fruits directly from the best local markets to your doorstep, ensuring you enjoy 100% fresh and healthy produce every time.";
+var links = [
+    { text: "Home", href: "index.html" },
+    { text: "Account", href: "account.html" },
+    { text: "Be a partner", href: "be a partner.html" },
+    { text: "Contact us", href: "contact us.html" },
+    { text: "About us", href: "about us.html" },
+    { text: "Questioner page", href: "questioner page.html" },
+    { text: "Shopping cart", href: "shopping cart.html" }
+];
+
+// Get the table element by ID
+var table = document.getElementById("footerTable");
+
+// Create the first row with logo and title
+var row1 = "<tr>";
+row1 += `
+    <th style="text-align: left;"><img src="${logos[0]}" width="8%" alt="Logo"></th>
+    <th class="orange-color" style="text-align: left;"><h4><strong>${title}</strong></h4></th>
+`;
+row1 += "</tr>";
+
+// Create the second row with description and links
+var row2 = "<tr>";
+row2 += `
+    <td style="text-align: left;">${description}</td>
+    <td style="text-align: left;">
+        <ul class="list-unstyled mb-0" id="footerList">
+`;
+
+// Add the links dynamically to the list
+for (var i = 0; i < links.length; i++) {
+    row2 += `<li><a href="${links[i].href}" class="text-white" style="text-decoration-line: none;">${links[i].text}</a></li>`;
+}
+
+// Close the list and the row
+row2 += "</ul></td></tr>";
+
+// Combine both rows and insert into the table
+table.innerHTML = row1 + row2;
+
+table.style.marginLeft = "0"; 
+
+
 
 
     function footerTable() {
@@ -260,6 +310,35 @@
     }
 }
 
+</script>
+
+<script>
+     // Data arrays
+        var photos = ["profile2.png", "profile2.png", "profile2.png"];
+        var names = ["Musaab Al Siyabi", "Faisal Al Breiki", "Mohammed Al Rubkhi"];
+        var positions = ["Co-founder", "Co-founder", "Co-founder"];
+
+        // Get the table element by its ID
+        var table = document.getElementById("aboutTable");
+
+        // Start creating a row
+        var row = "<tr>";
+
+        // Loop through the data
+        for (var i = 0; i < photos.length; i++) {
+            row += `
+                <td>
+                    <img src="${photos[i]}" alt="${names[i]}">
+                    <h3>${names[i]}</h3>
+                    <p>${positions[i]}</p>
+                </td>
+            `;
+        }
+
+        // Close the row and add it to the table
+        row += "</tr>";
+        table.innerHTML = row;
+    
 </script>
      
     </body>
