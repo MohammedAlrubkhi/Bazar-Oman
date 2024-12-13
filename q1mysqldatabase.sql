@@ -21,7 +21,7 @@ INSERT INTO users (firstName, lastName, email,pwd) VALUES
 
 CREATE TABLE partners (
     partner_id INT(11) NOT NULL , 
-    name VARCHAR(30) NOT NULL,                   
+    names VARCHAR(30) NOT NULL,                   
     shopName VARCHAR(30) NOT NULL,               
     email VARCHAR(100) NOT NULL UNIQUE,                 
     PRIMARY KEY (partner_id)           
