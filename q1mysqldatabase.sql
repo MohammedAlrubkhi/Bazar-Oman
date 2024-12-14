@@ -1,3 +1,6 @@
+CREATE DATABASE BazarOman;
+USE BazarOman;
+
 CREATE TABLE users (
 	id INT(11) NOT NULL AUTO_INCREMENT,
     firstName VARCHAR(30) NOT NULL,
@@ -56,4 +59,3 @@ INSERT INTO feedback (names, email, messages, rating) VALUES
 	('Youssef Ali', 'youssef@gmail.com', 'Excellent! Everything works perfectly.', 5),
 	('Tariq Yassin', 'tariq.yassin@gmail.com', 'The platform is great but could use some minor improvements.', 4),
 	('Khalid Ismail', 'khalid.ismail@gmail.com', 'Overall good experience, but support response was slow.', 3);
-COMMIT;
