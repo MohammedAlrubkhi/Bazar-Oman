@@ -23,22 +23,22 @@ INSERT INTO users (firstName, lastName, email,pwd) VALUES
 
 
 CREATE TABLE partners (
-    partner_id INT(11) NOT NULL , 
+    partner_id INT(11) NOT NULL AUTO_INCREMENT, 
     names VARCHAR(30) NOT NULL,                   
     shopName VARCHAR(30) NOT NULL,               
-    email VARCHAR(100) NOT NULL UNIQUE,                 
-    PRIMARY KEY (partner_id)           
+    email VARCHAR(100) NOT NULL UNIQUE,               
+    PRIMARY KEY (partner_id)     
 );
 
-INSERT INTO partners (partner_id, names, shopName,email) VALUES 
-    (10, 'hanaa', 'hanovil','hanovil@gmail.com'), 
-    (11, 'saif', 'slfit','saif@gmail.com'), 
-    (12, 'Abdullah', 'abdullah shops','abdShops@gmail.com'), 
-    (13, 'rawda', 'al Rawda','rawda@gmail.com'), 
-    (14, 'Khalil', 'alkhali Fruits','fruits@gmail.com'), 
-    (15, 'omar', 'Abu Omar','aboOmar@gmail.com'), 
-    (16, 'Khalid', 'themar alkhair','alkhair@gmail.com'), 
-    (17, 'raed', 'alraed','alraed@gmail.com');
+INSERT INTO partners (names, shopName,email) VALUES 
+    ('hamed', 'al Hesba','alhesba@gmail.com'), 
+    ('marwan', 'al Mazraa','almazraa@gmail.com'), 
+    ('atia', 'Atia','atia@gmail.com'), 
+    ('rabea', 'Bostan Alrabea','rabea@gmail.com'), 
+    ('hisham', 'al kokh Al Shami','alshami@gmail.com'), 
+    ('ahmed', 'Souq al Asar','alasar@gmail.com'),
+    ('mohammed', 'Mazaruna','mazaruna@gmail.com'), 
+    ('alQais', 'al Shair','alshair@gmail.com');
 
 
 CREATE TABLE feedback (
@@ -59,3 +59,4 @@ INSERT INTO feedback (names, email, messages, rating) VALUES
 	('Youssef Ali', 'youssef@gmail.com', 'Excellent! Everything works perfectly.', 5),
 	('Tariq Yassin', 'tariq.yassin@gmail.com', 'The platform is great but could use some minor improvements.', 4),
 	('Khalid Ismail', 'khalid.ismail@gmail.com', 'Overall good experience, but support response was slow.', 3);
+COMMIT;
