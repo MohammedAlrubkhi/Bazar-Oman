@@ -30,6 +30,7 @@
             <li><a href="about us.html" class="nav-link px-2" id = "headerText" style = "color: black;">About us</a></li>
             <li><a href="funpage.html" class="nav-link px-2" id = "headerText" style = "color: black;">Fun page</a></li>
             <li><a href="questioner page.html" class="nav-link px-2" id ="headerText" style = "color: black;">Questioner Page</a></li>
+            
           </ul>
           
           <div class="col-md text-end">
@@ -39,24 +40,12 @@
         </header>
     </div>
     <!--end of header-->    
-    <h3 style = "text-align:center">Search the Partner</h3>
+    <h3 style = "text-align:center">Your Info Have been Changed</h3>
     <br/>
     <br/>
 
     <div class = "container d-flex flex-wrap" >
-        <form action = "<?php htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "post"  style = 'margin-left: auto; margin-right: auto'>
-            <input type = "text" name = "toSearch" class = "btn" style = "color:black; border-color: black; text-align:left;">
-            &nbsp;
-            <select name="searchBy" class = "btn" style = "color:black; border-color: black; text-align:left;">
-                <option value="shopName">Shop Name</option>
-                <option value="partner_id">ID</option>
-                <option value="names">Name</option>
-                <option value="email">E-mail</option>
-            </select>
-            <input type = "submit" value = "search" class = "btn" style = "color:black; border-color: black; text-align:left; background:green;">
-            <br/>
-
-        </form>
+       
         <br/>
         <br/>
         <?php
@@ -69,56 +58,45 @@
                     die("Connection failed: ". 
                         mysqli_connect_error());
                 }
-                try{
-                if (isset($_POST['toSearch'])) {
-
-                    $search = $_POST['toSearch'];
-                    $searchBy = $_POST['searchBy'];
-                    
-                } else {
+    
                 
-                    $search = "";
-                    $searchBy = "";
+                $toUpdateStatment = 'UPDATE users SET firstName = "'.$_POST['name'].'", lastName = "", email = "'.$_POST['email'].'", pwd = "'.$_POST['newPassword'].'" WHERE email = "'. $_POST['oldEmail'].'"';
                 
-                }
-               
-                
-                
-                $toSearchStatment = "SELECT * FROM partners WHERE ".$searchBy." = '".$search."'";
-                
-                $stmt = $connection->prepare($toSearchStatment);
+                $stmt = $connection->prepare($toUpdateStatment);
                 $stmt->execute();
                 $result = $stmt ->get_result();
 
 
-                //Check if result is not empty
-                if(mysqli_num_rows($result)>0) 
+                $toSearchStatment = "SELECT * FROM users WHERE email = '". $_POST['email']."'";
+
+                $stmt = $connection->prepare($toSearchStatment);
+                $stmt->execute();
+                $result = $stmt ->get_result();
+
+                if(mysqli_num_rows($result)>0)
                 {
                     echo "<table border = 'border' style = 'margin-left: auto; margin-right: auto' class = 'table'>";
                     echo "<tr>
                                 <td>ID</td>
                                 <td>Name</td>
-                                <td>Shop Name</td>
                                 <td>E-mail</td>
 
                         </tr>";
                     while($row = $result ->fetch_assoc()){
                         
                         echo "<tr>
-                                <td>".$row['partner_id']."</td>
-                                <td>".$row['names']."</td>
-                                <td>".$row['shopName']."</td>
+                                <td>".$row['id']."</td>
+                                <td>".$row['firstName']." ".$row['lastName']."</td>
                                 <td>".$row['email']."</td>
                             </tr>";
         
                     }
                     echo "</table>";
+                }else{
+                    echo "no email with the same email you entered!";
+                }
 
-                } 
-                //if the result is empty
-                else { echo "No result found";}
-            } catch (mysqli_sql_exception){}
-           
+                
 
         ?>
     
