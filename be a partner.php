@@ -52,6 +52,7 @@
 
     // Check the connection
     if ($conn->connect_error) {
+        echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
         die("Connection failed: " . $conn->connect_error);
     }
 
@@ -60,24 +61,37 @@
     $shopName = mysqli_real_escape_string($conn, $_POST['shop-name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
 
-    // SQL query to insert the data into the partners table
-    $sql = "INSERT INTO partners (names, shopName, email) VALUES ('$names', '$shopName', '$email')";
+    // Check if the email already exists in the database
+    $emailCheckQuery = "SELECT * FROM partners WHERE email = '$email'";
+    $result = $conn->query($emailCheckQuery);
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Your application to become a partner has been submitted successfully.<br>";
-
-        // Display the entered information in a table
-        echo "<h3>Entered Information:</h3>";
-        echo "<table border = 'border' style = 'margin-left: auto; margin-right: auto' class = 'table'>";
-        echo "<tr><th>Name</th><th>Shop Name</th><th>Email</th></tr>";
-        echo "<tr><td>" . htmlspecialchars($names) . "</td><td>" . htmlspecialchars($shopName) . "</td><td>" . htmlspecialchars($email) . "</td></tr>";
-        echo "</table>";
+    if ($result->num_rows > 0) {
+        // If email already exists, return an error message
+        echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
+        echo "Error: The email address '$email' is already registered as a partner. Please use a different email.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // SQL query to insert the data into the partners table
+        $sql = "INSERT INTO partners (names, shopName, email) VALUES ('$names', '$shopName', '$email')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "<img src='done_image.png' alt='Done Image' style='width: 50px; height: 50px; display: block; margin-bottom: 10px;'>";
+            echo "Your application to become a partner has been submitted successfully.<br>";
+
+            // Display the entered information in a table
+            echo "<h3>Entered Information:</h3>";
+            echo "<table border='border' style='margin-left: auto; margin-right: auto' class='table'>";
+            echo "<tr><th>Name</th><th>Shop Name</th><th>Email</th></tr>";
+            echo "<tr><td>" . htmlspecialchars($names) . "</td><td>" . htmlspecialchars($shopName) . "</td><td>" . htmlspecialchars($email) . "</td></tr>";
+            echo "</table>";
+        } else {
+            echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 
     $conn->close();
-    ?>
+?>
+
     </div>
 
 <!-- Footer -->

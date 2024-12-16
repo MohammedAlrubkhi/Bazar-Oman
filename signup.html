@@ -49,52 +49,55 @@
         </div>
         <!--end of header-->
                
-    <div class="container">
-        <h2 style="color: rgb(242, 72, 11);">Sign up</h2>
-
-        <form method="POST" action="signup.php">
-            <div class="mb-2" style="display: flex; gap:10px;">
-                <div style="flex:1;">
-                    <label for="firstname" class="form-label"></label>
-                    <input type="text" style="background-color: white;" class="form-control" id="firstname" placeholder=" FIRST NAME*" name="firstname" required>
+        <div class="container" style=" margin-top: 50px;">
+            <h2 style="color: rgb(242, 72, 11); text-align: center;">Sign Up</h2>
+            <p style="text-align: center; color: #555;">Please fill in the details to create an account.</p>
+        
+            <form method="POST" action="signup.php">
+                <div class="mb-3" style="display: flex; gap: 15px;">
+                    <div style="flex: 1;">
+                        <label for="firstname" class="form-label">First Name*</label>
+                        <input type="text" class="form-control" id="firstname" placeholder="First Name" name="firstname" required style="background-color: white;">
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="lastname" class="form-label">Last Name*</label>
+                        <input type="text" class="form-control" id="lastname" placeholder="Last Name" name="lastname" required style="background-color: white;">
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+        
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email*</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email" name="email" required style="background-color: white;">
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
-                <div style="flex:1;">
-                    <label for="Lasttname" class="form-label"></label>
-                    <input type="text" style="background-color: white;" class="form-control" id="Lasttname" placeholder=" LAST NAME*" name="Lasttname" required>
+        
+                <div class="mb-3">
+                    <label for="conemail" class="form-label">Confirm Email*</label>
+                    <input type="email" class="form-control" id="conemail" placeholder="Confirm Email" name="conemail" required style="background-color: white;">
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
-            </div>
-
-            <div class="mb-3 mt-3">
-                <label for="email" class="form-label"></label>
-                <input type="email" style="background-color: white;" class="form-control" id="email" placeholder="EMAIL*" name="email" required>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-
-            <div class="mb-3 mt-3">
-                <label for="Conemail" class="form-label"></label>
-                <input type="email" style="background-color: white;" class="form-control" id="Conemail" placeholder="CONFIRM EMAIL*" name="Conemail" required>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-
-            <div class="mb-3 mt-3">
-                <label for="pass" class="form-label"></label>
-                <input type="password" style="background-color: white;" class="form-control" id="pass" placeholder="PASSWORD*" name="pass" required>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-
-            <div class="mb-3 mt-3">
-                <label for="Confirmpass" class="form-label"></label>
-                <input type="password" style="background-color: white;" class="form-control" id="Confirmpass" placeholder="CONFIRM PASSWORD*" name="Confirmpass" required>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-
-            <div class="justify-content-center">
-                <button type="submit" class="btn primary-button" style="width: 150px;">Sign Up</button>     
-            </div>
-        </form>
-    </div>
+        
+                <div class="mb-3">
+                    <label for="pass" class="form-label">Password*</label>
+                    <input type="password" class="form-control" id="pass" placeholder="Password" name="pass" required style="background-color: white;">
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+        
+                <div class="mb-3">
+                    <label for="confirmpass" class="form-label">Confirm Password*</label>
+                    <input type="password" class="form-control" id="confirmpass" placeholder="Confirm Password" name="confirmpass" required style="background-color: white;">
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+        
+                <div class="text-center">
+                    <button type="submit" class="btn primary-button" style="width: 200px; background-color: rgb(242, 72, 11); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px;">
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+        </div>
 
    <!-- Footer -->
 <footer class="bg-dark text-white text-center text-lg-start" style="margin: 0; padding: 0; margin-top: 5rem;"> 

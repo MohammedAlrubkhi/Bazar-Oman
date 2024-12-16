@@ -43,69 +43,89 @@
 
     <div class = "container flex-wrap" >
     <?php
-    // Establish a connection to the database
-    $servername = "localhost";  // Database server
-    $username = "root";         // Database username
-    $password = "";             // Database password
-    $dbname = "BazarOman";      // Database name
+// Establish a connection to the database
+$servername = "localhost";  // Database server
+$username = "root";         // Database username
+$password = "";             // Database password
+$dbname = "BazarOman";      // Database name
 
-    // Create a connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+// Create a connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check the connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Define a class to represent a User
+class User {
+    public $firstName;
+    public $lastName;
+    public $email;
+    public $password;
+
+    // Constructor to initialize the user object
+    public function __construct($firstName, $lastName, $email, $password) {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->email = $email;
+        $this->password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
     }
 
-    // Define a class to represent a User
-    class User {
-        public $firstName;
-        public $lastName;
-        public $email;
-        public $password;
+    // Function to save the user to the database
+    public function save($conn) {
+        $sql = "INSERT INTO users (firstName, lastName, email, pwd) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssss", $this->firstName, $this->lastName, $this->email, $this->password);
 
-        // Constructor to initialize the user object
-        public function __construct($firstName, $lastName, $email, $password) {
-            $this->firstName = $firstName;
-            $this->lastName = $lastName;
-            $this->email = $email;
-            $this->password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
-        }
-
-        // Function to save the user to the database
-        public function save($conn) {
-            $sql = "INSERT INTO users (firstName, lastName, email, pwd) VALUES (?, ?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssss", $this->firstName, $this->lastName, $this->email, $this->password);
-
-            if ($stmt->execute()) {
-                return true;
-            } else {
-                return false;
-            }
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
-    // Process the form submission
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $firstName = $_POST['firstname'];
-        $lastName = $_POST['Lasttname'];
-        $email = $_POST['email'];
-        $confirmEmail = $_POST['Conemail'];
-        $password = $_POST['pass'];
-        $confirmPassword = $_POST['Confirmpass'];
+    // Function to check if the email already exists in the database
+    public static function emailExists($conn, $email) {
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->store_result();
 
-        // Validate the form
-        if ($email !== $confirmEmail) {
-            echo "Emails do not match!";
-        } elseif ($password !== $confirmPassword) {
-            echo "Passwords do not match!";
+        // If the email already exists, return true
+        return $stmt->num_rows > 0;
+    }
+}
+
+// Process the form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $firstName = $_POST['firstname'];
+    $lastName = $_POST['lastname'];
+    $email = $_POST['email'];
+    $confirmEmail = $_POST['conemail'];
+    $password = $_POST['pass'];
+    $confirmPassword = $_POST['confirmpass'];
+
+    // Validate the form
+    if ($email !== $confirmEmail) {
+        echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
+        echo "Emails do not match!";
+    } elseif ($password !== $confirmPassword) {
+        echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
+        echo "Passwords do not match!";
+    } else {
+        // Check if the email already exists
+        if (User::emailExists($conn, $email)) {
+            echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
+            echo "Error: The email '$email' is already registered. Please use a different email.";
         } else {
             // Create a User object
             $user = new User($firstName, $lastName, $email, $password);
 
             // Try to save the user to the database
             if ($user->save($conn)) {
+                echo "<img src='done_image.png' alt='Done Image' style='width: 50px; height: 50px; display: block; margin-bottom: 10px;'>";
                 echo "Signup successful!<br/>";
 
                 // Display the entered information in a table
@@ -115,13 +135,16 @@
                 echo "<tr><td>" . htmlspecialchars($firstName) . "</td><td>" . htmlspecialchars($lastName) . "</td><td>" . htmlspecialchars($email) . "</td></tr>";
                 echo "</table>";
             } else {
+                echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
                 echo "Error: Could not save the user.";
             }
         }
     }
+}
 
-    $conn->close();
-    ?>
+$conn->close();
+?>
+
     </div>
 
 <!-- Footer -->

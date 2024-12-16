@@ -41,7 +41,7 @@
     <!--end of header--> 
 
     <div class = "container flex-wrap" >
-<?php
+    <?php
 // Database connection settings
 $servername = "localhost";
 $username = "root"; // Use your database username
@@ -58,30 +58,51 @@ if ($conn->connect_error) {
 
 // Collect the form data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
+    $names = $_POST['names'];
     $email = $_POST['email'];
-    $message = $_POST['message'];
+    $messages = $_POST['messages'];
 
-    // Prepare the SQL query to insert the data into the feedback table
-    $sql = "INSERT INTO feedback (name, email, message) VALUES (?, ?, ?)";
+    // Check if the email already exists in the feedback table
+    $emailCheckQuery = "SELECT * FROM feedback WHERE email = ?";
+    if ($stmt = $conn->prepare($emailCheckQuery)) {
+        $stmt->bind_param("s", $email); // Bind email parameter
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    // Use prepared statements to prevent SQL injection
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("sss", $name, $email, $message); // Bind parameters
-        if ($stmt->execute()) {
-            echo "Feedback submitted successfully.";
-
-            // Display the entered information in a table
-            echo "<h3>Entered Information:</h3>";
-            echo "<table border = 'border' style = 'margin-left: auto; margin-right: auto' class = 'table'>";
-            echo "<tr><th>Name</th><th>Email</th><th>Message</th></tr>";
-            echo "<tr><td>" . htmlspecialchars($names) . "</td><td>" . htmlspecialchars($email) . "</td><td>" . htmlspecialchars($message) . "</td></tr>";
-            echo "</table>";
+        // If email exists, display an error message
+        if ($result->num_rows > 0) {
+            echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
+            echo "Error: The email '$email' has already submitted feedback. You cannot submit more than once.";
         } else {
-            echo "Error: " . $stmt->error;
+            // Prepare the SQL query to insert the data into the feedback table
+            $sql = "INSERT INTO feedback (names, email, messages) VALUES (?, ?, ?)";
+
+            // Use prepared statements to prevent SQL injection
+            if ($stmt = $conn->prepare($sql)) {
+                $stmt->bind_param("sss", $names, $email, $messages); // Bind parameters
+                if ($stmt->execute()) {
+                    echo "<img src='done_image.png' alt='Done Image' style='width: 50px; height: 50px; display: block; margin-bottom: 10px;'>";
+                    echo "Feedback submitted successfully.";
+
+                    // Display the entered information in a table
+                    echo "<h3>Entered Information:</h3>";
+                    echo "<table border='border' style='margin-left: auto; margin-right: auto' class='table'>";
+                    echo "<tr><th>Name</th><th>Email</th><th>Message</th></tr>";
+                    echo "<tr><td>" . htmlspecialchars($names) . "</td><td>" . htmlspecialchars($email) . "</td><td>" . htmlspecialchars($messages) . "</td></tr>";
+                    echo "</table>";
+                } else {
+                    echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
+                    echo "Error: " . $stmt->error;
+                }
+                $stmt->close();
+            } else {
+                echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
+                echo "Error: " . $conn->error;
+            }
         }
-        $stmt->close();
+
     } else {
+        echo "<img src='error_image.png' alt='Error Image' style='width: 50px; height: 50px; display: block; margin-top: 10px;'>";
         echo "Error: " . $conn->error;
     }
 }
@@ -89,6 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Close connection
 $conn->close();
 ?>
+
+
 </div>
 
 <!-- Footer -->
