@@ -27,6 +27,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sss", $name, $email, $message); // Bind parameters
         if ($stmt->execute()) {
             echo "Feedback submitted successfully.";
+
+            // Display the entered information in a table
+            echo "<h3>Entered Information:</h3>";
+            echo "<table border = 'border' style = 'margin-left: auto; margin-right: auto' class = 'table'>";
+            echo "<tr><th>Name</th><th>Email</th><th>Message</th></tr>";
+            echo "<tr><td>" . htmlspecialchars($names) . "</td><td>" . htmlspecialchars($email) . "</td><td>" . htmlspecialchars($message) . "</td></tr>";
+            echo "</table>";
         } else {
             echo "Error: " . $stmt->error;
         }
