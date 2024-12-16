@@ -41,7 +41,7 @@
     <!--end of header--> 
 
 
-
+    <div class = "container flex-wrap" >
     <?php
     // Establish a connection to the database
     $servername = "localhost";  // Database server
@@ -106,11 +106,11 @@
 
             // Try to save the user to the database
             if ($user->save($conn)) {
-                echo "Signup successful!<br>";
+                echo "Signup successful!<br/>";
 
                 // Display the entered information in a table
                 echo "<h3>Entered Information:</h3>";
-                echo "<table border='1' cellpadding='10'>";
+                echo "<table border = 'border' style = 'margin-left: auto; margin-right: auto' class = 'table'>";
                 echo "<tr><th>First Name</th><th>Last Name</th><th>Email</th></tr>";
                 echo "<tr><td>" . htmlspecialchars($firstName) . "</td><td>" . htmlspecialchars($lastName) . "</td><td>" . htmlspecialchars($email) . "</td></tr>";
                 echo "</table>";
@@ -122,6 +122,7 @@
 
     $conn->close();
     ?>
+    </div>
 
 <!-- Footer -->
 <footer class="bg-dark text-white text-center text-lg-start" style="margin: 0; padding: 0; margin-top: 5rem;"> 
