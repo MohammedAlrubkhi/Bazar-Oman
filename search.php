@@ -14,7 +14,7 @@
 
     <div class="container">
         <header class="d-flex flex-wrap  justify-content-center justify-content-md-between py-3 mb-4">
-          <div class="col-md-3 mb-2 mb-md-0">
+          <div class="col-md mb-md-0">
             <a href="index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
               <img src = "logo.png" class="bi" height="32"/>
             </a>
@@ -33,9 +33,10 @@
           </ul>
           
           <div class="col-md text-end">
+            <a href="search.php"><button type="button" class="btn btn-outline-primary normal-button" style = "color: black;"><img src = "search.png" alt = "search button" height = "20px"></button></a>
             <a href="login.html"><button type="button" class="btn btn-outline-primary normal-button" style = "color: black;">Login</button></a>
             <a href="signup.html"><button type="button" class="btn btn-primary primary-button">Sign-up</button></a>
-          </div>
+        </div>
         </header>
     </div>
     <!--end of header-->    
@@ -53,7 +54,7 @@
                 <option value="names">Name</option>
                 <option value="email">E-mail</option>
             </select>
-            <input type = "submit" value = "search" class = "btn" style = "color:black; border-color: black; text-align:left; background:green;">
+            <input type = "submit" value = "search" class = "btn" style = "color:black; border-color: black; text-align:left; ">
             <br/>
 
         </form>
